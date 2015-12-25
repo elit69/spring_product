@@ -11,7 +11,7 @@
 <form id="frmLogin" action="${pageContext.request.contextPath}/login" method="POST">
 
 	username : <input type="text" name="username" /> <br/>
-	password : <input type="test" name="password" /> <br/>
+	password : <input type="text" name="password" /> <br/>
 	<input type="submit" value="Login"  />
 
 </form>
