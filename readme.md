@@ -1,21 +1,15 @@
-POJO Programming Model
-Implement Userdetails
-
-Homework:
-
 Product : READ , DELETE
-Spring Security , AJAX
 
-+USER  
+Implement POJO Programming Model
 
-ROLES : ADMIN, USER
+Implement Userdetails with Spring Secuirty and AJAX 
 
-JSP :
+	/home permitAll  ----- List Product/ADMIN can see button delete
 
-home permitAll  ----- List Product - If(role =="ADMIN") ADMIN can see button delete
-user ---- User and Admin can access
-admin  --- Admin can access
+	/user ---- User and Admin can access
 
-Encrypt.
+	/admin  --- Admin can access
+
+Encrypt Password.
+
 Remember Me.
-
