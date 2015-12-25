@@ -1,9 +1,8 @@
-package com.lit.app.security;
+package com.lit.app.config.security;
 
 import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,7 +14,7 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.lit.app.services.impl.CustomUserDetailService;
+import com.lit.app.services.impl.UserService;
 
 @Configuration
 /*
@@ -27,19 +26,10 @@ import com.lit.app.services.impl.CustomUserDetailService;
 * The @EnableWebSecurity annotation and WebSecurityConfigurerAdapter work
 * together to provide web based security. 
 */
-public class SecurityWebConfiguration extends WebSecurityConfigurerAdapter{
+public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
-	CustomUserDetailService userDetailsService;
-	
-	@Autowired
-	@Qualifier(value="ajaxAuthenticationSuccessHandler")
-	private AjaxAuthenticationSuccessHandler ajaxAuthenticationSuccessHandler;
-	
-	@Autowired
-	@Qualifier(value="ajaxAuthenticationFailureHandler")
-	private AjaxAuthenticationFailureHandler ajaxAuthenticationFailureHandler;
-	
+	UserService userDetailsService;
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -73,9 +63,9 @@ public class SecurityWebConfiguration extends WebSecurityConfigurerAdapter{
 			.permitAll()
 			.loginPage("/login")
 			.usernameParameter("username")
-			.passwordParameter("password")
-			.successHandler(ajaxAuthenticationSuccessHandler)
-			.failureHandler(ajaxAuthenticationFailureHandler);
+			.passwordParameter("password");
+		//	.successHandler(ajaxAuthenticationSuccessHandler)
+		//	.failureHandler(ajaxAuthenticationFailureHandler);
 		http
 			.sessionManagement()
 			.sessionAuthenticationErrorUrl("/login")

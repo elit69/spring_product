@@ -8,7 +8,7 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-public class WebBootsrap implements WebApplicationInitializer {
+public class WebInit implements WebApplicationInitializer {
 	
 	@Override
 	public void onStartup(ServletContext container) throws ServletException {
@@ -20,7 +20,7 @@ public class WebBootsrap implements WebApplicationInitializer {
 		// 1.Create AnnotationConfigWebApplicationContext Object
 		AnnotationConfigWebApplicationContext servletContext = new AnnotationConfigWebApplicationContext();
 		// 2.Register the Configuration Class
-		servletContext.register(WebConfiguration.class);
+		servletContext.register(WebConfig.class);
 
 		// 3.Create DispatacherServelt, add it to container,
 		// and assign it to the servletRegisteration

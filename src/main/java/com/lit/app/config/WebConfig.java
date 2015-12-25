@@ -19,29 +19,14 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  * activates annotation-driven controller request mapping and
  * replaces <mvc:annotation-driven>.
  */
-@ComponentScan(basePackages = "com.test.app")
-public class WebConfiguration {
+@ComponentScan(basePackages = "com.lit.app")
+public class WebConfig {
 	
 	/*
 	 * @Bean annotation tells Spring that a method annotated with @Bean will
 	 * return an object that should be registered as a bean in the Spring
 	 * application context.
 	 */
-	@Bean(name = "firstName")
-	public String getName() {
-		return "Chheang";
-	}
-
-	@Bean(name = "lastName")
-	public String getLastName() {
-		return "Vuthea";
-	}
-
-	@Bean(name = "gender")
-	public String getGender() {
-		return "M";
-	}
-
 	@Bean
 	public DataSource getDataSource(){
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
