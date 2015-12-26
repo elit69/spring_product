@@ -31,7 +31,7 @@ public class Main {
 	@RequestMapping(value="/")
 	public String homePahe(){
 		System.out.println(getRole());
-		return "NewFile";
+		return "index";
 	}	
 	
 	private String getRole() {
