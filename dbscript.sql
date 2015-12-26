@@ -18,41 +18,41 @@ Date: 2015-12-25 17:01:42
 -- ----------------------------
 -- Sequence structure for api_role_id_seq
 -- ----------------------------
-DROP SEQUENCE "api_role_id_seq";
+DROP SEQUENCE IF EXISTS "api_role_id_seq" CASCADE;
 CREATE SEQUENCE "api_role_id_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 1
+ START 3
  CACHE 1;
 
 -- ----------------------------
 -- Sequence structure for api_user_id_seq
 -- ----------------------------
-DROP SEQUENCE "api_user_id_seq";
+DROP SEQUENCE IF EXISTS "api_user_id_seq" CASCADE;
 CREATE SEQUENCE "api_user_id_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 2
+ START 3
  CACHE 1;
-SELECT setval('"public"."api_user_id_seq"', 2, true);
+SELECT setval('"public"."api_user_id_seq"', 3, true);
 
 -- ----------------------------
 -- Sequence structure for api_user_role_id_seq
 -- ----------------------------
-DROP SEQUENCE "api_user_role_id_seq";
+DROP SEQUENCE IF EXISTS "api_user_role_id_seq" CASCADE;
 CREATE SEQUENCE "api_user_role_id_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 1
+ START 3
  CACHE 1;
 
 -- ----------------------------
 -- Sequence structure for tbproduct_id_seq
 -- ----------------------------
-DROP SEQUENCE "tbproduct_id_seq";
+DROP SEQUENCE IF EXISTS "tbproduct_id_seq" CASCADE;
 CREATE SEQUENCE "tbproduct_id_seq"
  INCREMENT 1
  MINVALUE 1
@@ -63,7 +63,7 @@ CREATE SEQUENCE "tbproduct_id_seq"
 -- ----------------------------
 -- Table structure for tb_user_role
 -- ----------------------------
-DROP TABLE IF EXISTS "tb_user_role";
+DROP TABLE IF EXISTS "tb_user_role" CASCADE;
 CREATE TABLE "tb_user_role" (
 "id" int4 DEFAULT nextval('api_user_role_id_seq'::regclass) NOT NULL,
 "user_id" int4,
@@ -77,13 +77,14 @@ WITH (OIDS=FALSE)
 -- Records of tb_user_role
 -- ----------------------------
 BEGIN;
-INSERT INTO "tb_user_role" VALUES ('1', '2', '1');
+INSERT INTO "tb_user_role" VALUES ('1', '1', '1');
+INSERT INTO "tb_user_role" VALUES ('2', '2', '2');
 COMMIT;
 
 -- ----------------------------
 -- Table structure for tbproduct
 -- ----------------------------
-DROP TABLE IF EXISTS "tbproduct";
+DROP TABLE IF EXISTS "tbproduct" CASCADE;
 CREATE TABLE "tbproduct" (
 "id" int4 DEFAULT nextval('tbproduct_id_seq'::regclass) NOT NULL,
 "name" varchar COLLATE "default" NOT NULL,
@@ -108,7 +109,7 @@ COMMIT;
 -- ----------------------------
 -- Table structure for tbrole
 -- ----------------------------
-DROP TABLE IF EXISTS "tbrole";
+DROP TABLE IF EXISTS "tbrole" CASCADE;
 CREATE TABLE "tbrole" (
 "id" int4 DEFAULT nextval('api_role_id_seq'::regclass) NOT NULL,
 "role_name" varchar(100) COLLATE "default"
@@ -122,12 +123,13 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 BEGIN;
 INSERT INTO "tbrole" VALUES ('1', 'ADMIN');
+INSERT INTO "tbrole" VALUES ('2', 'USER');
 COMMIT;
 
 -- ----------------------------
 -- Table structure for tbuser
 -- ----------------------------
-DROP TABLE IF EXISTS "tbuser";
+DROP TABLE IF EXISTS "tbuser" CASCADE;
 CREATE TABLE "tbuser" (
 "id" int4 DEFAULT nextval('api_user_id_seq'::regclass) NOT NULL,
 "username" varchar(100) COLLATE "default" NOT NULL,
@@ -151,7 +153,8 @@ WITH (OIDS=FALSE)
 -- Records of tbuser
 -- ----------------------------
 BEGIN;
-INSERT INTO "tbuser" VALUES ('2', 'admin', 'asd', '$2a$10$FUGODPP15.f7eqkDOVW.mOyeilUuFOG42HSElCz933a8NLI86B046', '1', '1', 'asdf', '1', '2015-12-01', '2015-12-28', '2015-12-22', '2', '1');
+INSERT INTO "tbuser" VALUES ('1', 'admin', 'asd', '$2a$10$FUGODPP15.f7eqkDOVW.mOyeilUuFOG42HSElCz933a8NLI86B046', '1', '1', 'asdf', '1', '2015-12-01', '2015-12-28', '2015-12-22', '1', '1');
+INSERT INTO "tbuser" VALUES ('2', 'user', 'assd', '$2a$10$FUGODPP15.f7eqkDOVW.mOyeilUuFOG42HSElCz933a8NLI86B046', '1', '1', 'asdf', '1', '2015-12-01', '2015-12-28', '2015-12-22', '1', '1');
 COMMIT;
 
 -- ----------------------------
