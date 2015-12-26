@@ -198,3 +198,12 @@ ALTER TABLE "tb_user_role" ADD FOREIGN KEY ("user_id") REFERENCES "tbuser" ("id"
 -- ----------------------------
 ALTER TABLE "tbproduct" ADD FOREIGN KEY ("created_by") REFERENCES "tbuser" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE "tbproduct" ADD FOREIGN KEY ("update_by") REFERENCES "tbuser" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
+CREATE TABLE persistent_logins (
+    username varchar(64) not null,
+    series varchar(64) not null,
+    token varchar(64) not null,
+    last_used timestamp not null,
+    PRIMARY KEY (series)
+);

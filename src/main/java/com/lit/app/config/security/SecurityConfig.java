@@ -1,6 +1,6 @@
 package com.lit.app.config.security;
 
-import java.util.Base64;
+//import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -94,6 +94,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	}
 	public static void main(String[] args) {
 		System.out.println(new BCryptPasswordEncoder().encode("1"));
-		System.out.println(Base64.getUrlEncoder().encodeToString("1".getBytes()));
+		//System.out.println(Base64.getUrlEncoder().encodeToString("1".getBytes()));
 	}
 }

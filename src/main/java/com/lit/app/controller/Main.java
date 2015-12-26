@@ -35,7 +35,7 @@ public class Main {
 	}	
 	
 	private String getRole() {
-		return SecurityContextHolder.getContext().getAuthentication().getAuthorities().iterator().next().toString();
+		return SecurityContextHolder.getContext().getAuthentication().getAuthorities().iterator().next().getAuthority();
 	}
 	
 }

@@ -31,7 +31,7 @@ public class WebConfig {
 	public DataSource getDataSource(){
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("org.postgresql.Driver");
-		dataSource.setUrl("jdbc:postgresql://localhost:5432/universitydb");
+		dataSource.setUrl("jdbc:postgresql://localhost:5432/productdb");
 		dataSource.setUsername("postgres");
 		dataSource.setPassword("12345");
 		return dataSource;

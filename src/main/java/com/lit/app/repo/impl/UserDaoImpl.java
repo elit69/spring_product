@@ -25,7 +25,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User findUserByUserName(String username) {
 		String sql = "SELECT id, username, password, email, enabled , position, approved_by, approved_date, created_date, "
-				+ "created_by , updated_by, updated_date, locked FROM api_user WHERE username = ?";
+				+ "created_by , updated_by, updated_date, locked FROM tbuser WHERE username = ?";
 		try (Connection cnn = dataSource.getConnection(); PreparedStatement ps = cnn.prepareStatement(sql);) {
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
@@ -54,9 +54,9 @@ public class UserDaoImpl implements UserDao {
 
 	public List<UserRole> findUserRoleByUserId(int id) {
 		List<UserRole> roles = new ArrayList<UserRole>();
-		String sql = "SELECT api_role.id , api_role.role_name FROM api_user "
-				+ "LEFT JOIN api_user_role ON api_user.id = api_user_role.api_user_id "
-				+ "LEFT JOIN api_role ON api_role.id = api_user_role.api_role_id WHERE api_user.id = ?";
+		String sql = "SELECT tbrole.id , tbrole.role_name FROM tbuser "
+				+ "LEFT JOIN tb_user_role ON tbuser.id = tb_user_role.user_id "
+				+ "LEFT JOIN tbrole ON tbrole.id = tb_user_role.role_id WHERE tbuser.id = ?";
 		try (Connection cnn = dataSource.getConnection(); PreparedStatement ps = cnn.prepareStatement(sql);) {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
