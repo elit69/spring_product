@@ -28,6 +28,11 @@ public class User implements UserDetails{
     private boolean credentialsNonExpired = true;
     private boolean enabled = true;
     
+    public User(){}
+    public User(int id, String username){
+    	this.id = id;
+    	this.username = username;
+    }    
 	public int getId() {
 		return id;
 	}
@@ -117,9 +122,14 @@ public class User implements UserDetails{
 		// TODO Auto-generated method stub
 		return roles;
 	}
-    
-    
-    
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", email=" + email + ", position=" + position + ", approvedBy=" + approvedBy
+				+ ", approvedDate=" + approvedDate + ", createdDate=" + createdDate + ", createdBy=" + createdBy
+				+ ", username=" + username + ", password=" + password + ", roles=" + roles + ", accountNonExpired="
+				+ accountNonExpired + ", accountNonLocked=" + accountNonLocked + ", credentialsNonExpired="
+				+ credentialsNonExpired + ", enabled=" + enabled + "]";
+	}
 }
 
 

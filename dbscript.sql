@@ -1,17 +1,17 @@
 /*
 Navicat PGSQL Data Transfer
 
-Source Server         : postgres
-Source Server Version : 90303
+Source Server         : Postgres
+Source Server Version : 90305
 Source Host           : localhost:5432
 Source Database       : productdb
 Source Schema         : public
 
 Target Server Type    : PGSQL
-Target Server Version : 90303
+Target Server Version : 90305
 File Encoding         : 65001
 
-Date: 2015-12-25 17:01:42
+Date: 2015-12-27 15:28:29
 */
 
 
@@ -57,8 +57,29 @@ CREATE SEQUENCE "tbproduct_id_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 1
+ START 2
  CACHE 1;
+SELECT setval('"public"."tbproduct_id_seq"', 2, true);
+
+-- ----------------------------
+-- Table structure for persistent_logins
+-- ----------------------------
+DROP TABLE IF EXISTS "persistent_logins" CASCADE;
+CREATE TABLE "persistent_logins" (
+"username" varchar(64) COLLATE "default" NOT NULL,
+"series" varchar(64) COLLATE "default" NOT NULL,
+"token" varchar(64) COLLATE "default" NOT NULL,
+"last_used" timestamp(6) NOT NULL
+)
+WITH (OIDS=FALSE)
+
+;
+
+-- ----------------------------
+-- Records of persistent_logins
+-- ----------------------------
+BEGIN;
+COMMIT;
 
 -- ----------------------------
 -- Table structure for tb_user_role
@@ -92,9 +113,8 @@ CREATE TABLE "tbproduct" (
 "stock" int2 NOT NULL,
 "created_date" date NOT NULL,
 "updated_date" date NOT NULL,
-"enabled" int2 NOT NULL,
 "created_by" int2 NOT NULL,
-"update_by" int2 NOT NULL
+"updated_by" int2 NOT NULL
 )
 WITH (OIDS=FALSE)
 
@@ -104,6 +124,8 @@ WITH (OIDS=FALSE)
 -- Records of tbproduct
 -- ----------------------------
 BEGIN;
+INSERT INTO "tbproduct" VALUES ('1', 'coca cola', '3.3', '50', '2015-12-27', '2015-12-27', '1', '1');
+INSERT INTO "tbproduct" VALUES ('2', 'anchor', '11', '30', '2015-12-27', '2015-12-28', '1', '2');
 COMMIT;
 
 -- ----------------------------
@@ -158,12 +180,39 @@ INSERT INTO "tbuser" VALUES ('2', 'user', 'assd', '$2a$10$FUGODPP15.f7eqkDOVW.mO
 COMMIT;
 
 -- ----------------------------
+-- View structure for v_list_product
+-- ----------------------------
+CREATE OR REPLACE VIEW "v_list_product" AS 
+ SELECT tbproduct.id,
+    tbproduct.name,
+    tbproduct.price,
+    tbproduct.stock,
+    tbproduct.created_date,
+    tbproduct.updated_date,
+    tbproduct.created_by,
+    ( SELECT tbuser.username
+           FROM tbuser
+          WHERE (tbuser.id = tbproduct.created_by)
+         LIMIT 1) AS username_creater,
+    tbproduct.updated_by,
+    ( SELECT tbuser.username
+           FROM tbuser
+          WHERE (tbuser.id = tbproduct.updated_by)
+         LIMIT 1) AS username_updater
+   FROM tbproduct;
+
+-- ----------------------------
 -- Alter Sequences Owned By 
 -- ----------------------------
 ALTER SEQUENCE "api_role_id_seq" OWNED BY "tbrole"."id";
 ALTER SEQUENCE "api_user_id_seq" OWNED BY "tbuser"."id";
 ALTER SEQUENCE "api_user_role_id_seq" OWNED BY "tb_user_role"."id";
 ALTER SEQUENCE "tbproduct_id_seq" OWNED BY "tbproduct"."id";
+
+-- ----------------------------
+-- Primary Key structure for table persistent_logins
+-- ----------------------------
+ALTER TABLE "persistent_logins" ADD PRIMARY KEY ("series");
 
 -- ----------------------------
 -- Uniques structure for table tb_user_role
@@ -190,20 +239,11 @@ ALTER TABLE "tbuser" ADD UNIQUE ("username");
 -- ----------------------------
 -- Foreign Key structure for table "tb_user_role"
 -- ----------------------------
-ALTER TABLE "tb_user_role" ADD FOREIGN KEY ("role_id") REFERENCES "tbrole" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE "tb_user_role" ADD FOREIGN KEY ("user_id") REFERENCES "tbuser" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "tb_user_role" ADD FOREIGN KEY ("role_id") REFERENCES "tbrole" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Foreign Key structure for table "tbproduct"
 -- ----------------------------
+ALTER TABLE "tbproduct" ADD FOREIGN KEY ("updated_by") REFERENCES "tbuser" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE "tbproduct" ADD FOREIGN KEY ("created_by") REFERENCES "tbuser" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "tbproduct" ADD FOREIGN KEY ("update_by") REFERENCES "tbuser" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-
-CREATE TABLE persistent_logins (
-    username varchar(64) not null,
-    series varchar(64) not null,
-    token varchar(64) not null,
-    last_used timestamp not null,
-    PRIMARY KEY (series)
-);

@@ -10,7 +10,7 @@ import com.lit.app.entities.User;
 import com.lit.app.repo.UserDao;
 
 @Service
-public class UserService  implements UserDetailsService{
+public class UserServiceImpl  implements UserDetailsService{
 
 	@Autowired
 	UserDao userDaoImpl;

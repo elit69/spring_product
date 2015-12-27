@@ -4,8 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 public class UserRole implements GrantedAuthority{
 
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;	
 	private Integer id;
 	private String name;
 	
@@ -22,9 +21,12 @@ public class UserRole implements GrantedAuthority{
 		this.name = name;
 	}
 	
-	
 	@Override
 	public String getAuthority() {
 		return name;
 	}
+	@Override
+	public String toString() {
+		return "UserRole [id=" + id + ", name=" + name + "]";
+	}		
 }
