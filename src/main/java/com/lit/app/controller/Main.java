@@ -3,9 +3,9 @@ package com.lit.app.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.lit.app.entities.Product;
 import com.lit.app.services.ProductService;
 
 @Controller /*
@@ -36,11 +36,20 @@ public class Main {
 	@RequestMapping(value="/")
 	public String homePahe(){
 		System.out.println(getRole());
-		for(Product a : productService.list()){
-			System.out.println(a);
-		}
 		return "index";
 	}	
+	
+	@RequestMapping(value="/admin")
+	public String admin(ModelMap model){
+		model.addAttribute("list", productService.list());			
+		return "admin";
+	}
+	
+	@RequestMapping(value="/user")
+	public String user(ModelMap model){
+		model.addAttribute("list", productService.list());			
+		return "user";
+	}
 	
 	private String getRole() {
 		return SecurityContextHolder.getContext().getAuthentication().getAuthorities().iterator().next().getAuthority();
