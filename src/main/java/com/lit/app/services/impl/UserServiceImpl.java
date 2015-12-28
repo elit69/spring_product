@@ -25,5 +25,15 @@ public class UserServiceImpl  implements UserDetailsService{
 		}
 		return user;
 	}
+	
+	public UserDetails loadUserById(int id) throws UsernameNotFoundException {
+		
+		User user = userDaoImpl.loadUserById(id);
+		if (user == null) {
+			System.out.println("User not found");
+			throw new UsernameNotFoundException("User not found");
+		}
+		return user;
+	}
 
 }

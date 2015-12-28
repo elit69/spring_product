@@ -145,7 +145,7 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 BEGIN;
 INSERT INTO "tbrole" VALUES ('1', 'ADMIN');
-INSERT INTO "tbrole" VALUES ('2', 'USER');
+INSERT INTO "tbrole" VALUES ('2', 'AUTHOR');
 COMMIT;
 
 -- ----------------------------
@@ -176,7 +176,7 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 BEGIN;
 INSERT INTO "tbuser" VALUES ('1', 'admin', 'asd', '$2a$10$FUGODPP15.f7eqkDOVW.mOyeilUuFOG42HSElCz933a8NLI86B046', '1', '1', 'asdf', '1', '2015-12-01', '2015-12-28', '2015-12-22', '1', '1');
-INSERT INTO "tbuser" VALUES ('2', 'user', 'assd', '$2a$10$FUGODPP15.f7eqkDOVW.mOyeilUuFOG42HSElCz933a8NLI86B046', '1', '1', 'asdf', '1', '2015-12-01', '2015-12-28', '2015-12-22', '1', '1');
+INSERT INTO "tbuser" VALUES ('2', 'author', 'assd', '$2a$10$FUGODPP15.f7eqkDOVW.mOyeilUuFOG42HSElCz933a8NLI86B046', '1', '1', 'asdf', '1', '2015-12-01', '2015-12-28', '2015-12-22', '1', '1');
 COMMIT;
 
 -- ----------------------------

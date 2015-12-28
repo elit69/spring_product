@@ -22,9 +22,9 @@ public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHa
 		String url = "";
 		for (GrantedAuthority authority : authorities) {
 			if (authority.getAuthority().equals("ROLE_ADMIN"))
-				url = "admin";
-			else if (authority.getAuthority().equals("ROLE_USER"))
-				url = "user";
+				url = "admin/product";
+			else if (authority.getAuthority().equals("ROLE_AUTHOR"))
+				url = "author/product";
 			else	url = "accessDenied";
 		}
 		response.getWriter().print(url);

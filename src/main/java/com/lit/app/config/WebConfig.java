@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration 
@@ -20,7 +22,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  * replaces <mvc:annotation-driven>.
  */
 @ComponentScan(basePackages = "com.lit.app")
-public class WebConfig {
+public class WebConfig extends WebMvcConfigurerAdapter{
 	
 	/*
 	 * @Bean annotation tells Spring that a method annotated with @Bean will
@@ -35,6 +37,11 @@ public class WebConfig {
 		dataSource.setUsername("postgres");
 		dataSource.setPassword("12345");
 		return dataSource;
+	}
+	
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry){
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
 	
 	@Bean

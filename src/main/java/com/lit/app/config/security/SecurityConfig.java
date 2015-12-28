@@ -34,7 +34,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	@Qualifier(value="ajaxAuthenticationSuccessHandler")
-	private AjaxAuthenticationSuccessHandler ajaxAuthenticationSuccessHandler;	
+	private AjaxAuthenticationSuccessHandler ajaxAuthenticationSuccessHandler;
+	
+	@Autowired
+	@Qualifier(value="ajaxAuthenticationFailureHandler")
+	private AjaxAuthenticationFailureHandler ajaxAuthenticationFailureHandler;
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {	
@@ -48,8 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		http
 			.authorizeRequests()
-			.antMatchers("/").permitAll()
-			.antMatchers("/user/**").hasAnyRole("USER" , "ADMIN")
+			.antMatchers("/**").permitAll()
+			.antMatchers("/author/**").hasAnyRole("AUTHOR" , "ADMIN")
 			.antMatchers("/admin/**").hasRole("ADMIN");
 		http
 			.formLogin()
@@ -57,8 +61,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.loginPage("/login")
 			.usernameParameter("username")
 			.passwordParameter("password")
-			.successHandler(ajaxAuthenticationSuccessHandler);
-		//	.failureHandler(ajaxAuthenticationFailureHandler);
+			.successHandler(ajaxAuthenticationSuccessHandler)
+			.failureHandler(ajaxAuthenticationFailureHandler);
 		http
 			.sessionManagement()
 			.sessionAuthenticationErrorUrl("/login")

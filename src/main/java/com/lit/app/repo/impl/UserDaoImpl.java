@@ -72,5 +72,34 @@ public class UserDaoImpl implements UserDao {
 		return roles;
 	}
 
+	@Override
+	public User loadUserById(int id) {
+		String sql = "SELECT id, username, password, email, enabled , position, approved_by, approved_date, created_date, "
+				+ "created_by , updated_by, updated_date, locked FROM tbuser WHERE id = ?";
+		try (Connection cnn = dataSource.getConnection(); PreparedStatement ps = cnn.prepareStatement(sql);) {
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				User user = new User();
+				user.setId(rs.getInt("id"));
+				user.setUsername(rs.getString("username"));
+				user.setPassword(rs.getString("password"));
+				user.setEmail(rs.getString("email"));
+				user.setPosition(rs.getString("position"));
+				user.setApprovedDate(rs.getDate("approved_date"));
+				user.setApprovedBy(rs.getInt("approved_by"));
+				user.setCreatedBy(rs.getInt("created_by"));
+				user.setCreatedDate(rs.getDate("created_date"));
+				user.setEnabled(rs.getBoolean("enabled"));
+				user.setAccountNonLocked(rs.getBoolean("locked"));
+				user.setRoles(this.findUserRoleByUserId(user.getId()));
+				return user;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 
 }
